@@ -12,8 +12,8 @@
 <body>
 
 <header>
- <button onclick="goToAuth('login')">Login</button>
-  <button onclick="goToAuth('signup')">Sign Up</button>
+ <button onclick="goToForm('login')">Login</button>  <!--Edited -goToAuth('login') changed to -goToForm('login')++++++++++-->
+  <button onclick="goToForm('signup')">Sign Up</button>   <!--Edited -goToAuth('login') changed to -goToForm('login')++++++++-->
 </header>
 <hr>
 
@@ -24,24 +24,27 @@
   <h1>Welcome to the Online Exam Portal</h1>
   <p>Fast, secure, and user-friendly platform for taking and managing exams with ease.</p>
 </section>
-<div class="container" style="background: #ffffff15;">
-  <h2 style="text-align:center; margin-bottom:20px; color: #fff;">Why Choose Our Portal?</h2>
+<div class="container">   <!-- edited ++/div> style="background: #ffffff15;"> is removed+++++-->
+  <h2 >Why Choose Our Portal?</h2><!--edited    style="text-align:center; margin-bottom:20px; color: #fff;" is removed+++++++++++-->
   <div class="features">
 
     <div class="feature-box">
-      <h3>Instant Results</h3>
+      <h3>🎯 Instant Results</h3> <!--🎯 is added-->
       <p>Objective questions are graded automatically as soon as you finish your exam.</p>
     </div>
 
     <div class="feature-box">
-      <h3>Easy Interface</h3>
+      <h3>💻 Easy Interface</h3>  <!--💻 is added-->
       <p>A clean and smooth layout designed for both students and teachers.</p>
     </div>
 
        <div class="feature-box">
-      <h3>Secure Exams</h3>
+      <h3>🔒 Secure Exams</h3>  <!--🔒 is added+++++++++-->
       <p>Ensures fair and safe assessments with controlled test flows.</p>
-    </div>
+      </div>
+    </div>  <!--added++++++-->
+  </div>   <!--added++++++++-->
+
    <div class="container steps-container">
     <h2>How It Works</h2>
     <div class="steps">
@@ -68,18 +71,34 @@
     </div>
 </div>
 
-  </div>
-</div>
+<!--2 div closing tags are removed(</div>) +++++++++-->
 </main>
 <footer style="text-align: center;">
  © 2025 Exam Portal | Academic Year 2025 G.C | Prepared by Group 7
 </footer>
 
-<script>
-  function goToAuth(type) {
-    window.location.href = `login-signup.html?mode=${type}`;
+<script> // edited full change++++++++++
+  function goToForm(formType) {
+    localStorage.setItem('showForm', formType);
+    window.location.href = 'login-signup.html';
   }
-</script>
+  function goSignup() {
+    localStorage.setItem('showForm', 'signup');
+    window.location.href = 'login-signup.html';
+  }
 
+   document.addEventListener('DOMContentLoaded', function () {
+    console.log("Welcome page loaded");
+
+    const buttons = document.querySelectorAll('button');
+            buttons.forEach(button => {
+                button.addEventListener('mouseover', function() {
+                    this.style.transform = 'scale(1.05)';
+                });
+               
+            });
+  });
+</script>
+<script src="js/api.js"></script>
 </body>
 </html>

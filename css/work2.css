@@ -75,8 +75,8 @@ h1 {
 .hero {
   background: var(--container-color);
   color: #333;
-  padding: 60px 20px; /* Updated from old 30px */
-  background: rgba(255,255,255,0.1); /* transparent hero */
+  padding: 60px 20px; 
+  background: rgba(255,255,255,0.1); 
   margin: 20px;
   border-radius: 10px;
 }
@@ -104,8 +104,8 @@ hr {
   background: #ddd;
 }
 
-
-@media (max-width: 500px) {
+                  
+@media (max-width: 768px) {
     .hero h1 {
         font-size: 32px;
     }
@@ -127,7 +127,7 @@ hr {
 .container {
     max-width: 900px;
     margin: 60px auto;
-    background: rgba(255,255,255,0.15); /* semi-transparent */
+    background: rgba(255,255,255,0.15);
     padding: 30px;
     border-radius: 15px;
     box-shadow: 0 8px 25px rgba(0,0,0,0.3);
@@ -149,7 +149,7 @@ hr {
   }
  .feature-box:hover {
     background: #ffffff35;
-    transform: translateY(-5px);
+    transform: translateY(-8px);  
   }
 
   .feature-box h3 {
@@ -171,24 +171,23 @@ hr {
     color: #fff;
     font-size: 32px;
     display: flex;
-    justify-content: center;    /* center the whole section */
+    justify-content: center;  
     flex-wrap: wrap;
     gap: 20px;
 }
 
 .steps {
     display: flex;
-    justify-content: center;
-    flex-wrap: nowrap;
-    gap: 30px;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 20px; 
 }
 
 .step {
     background: rgba(255,255,255,0.15);
     padding: 20px;
     border-radius: 10px;
-    flex: 1 1 200px;  
-    max-width: 1000px;
+    width: 200px;  
     text-align: center;
     transition: all 0.3s;
 }
@@ -200,8 +199,8 @@ hr {
 
 .step-number {
     display: inline-block;
-    width: 130px;
-    height: 130px;
+    width: 40px;
+    height: 40px;
     line-height: 40px;
     background: #4a5568;
     color: white;
