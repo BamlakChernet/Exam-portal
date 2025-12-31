@@ -1,4 +1,23 @@
-const questions = [
+const questionBox = document.getElementById("questionBox");
+if (questionBox) {
+  const quizzes = JSON.parse(localStorage.getItem("quizzes")) || [];
+  let questions = [];
+
+  if (quizzes.length > 0) {
+
+    const latestQuiz = quizzes[quizzes.length - 1];
+    
+    questions = latestQuiz.questions.map(q => ({
+      text: q.text,
+      options: q.options,
+      answer: q.answer 
+    }));
+    
+    console.log("Loaded teacher quiz with", questions.length, "questions");
+  } 
+else {
+
+  questions = [
       {
         text: "A cylindrical water tank has a radius of 3 m and height of 7 m. What is its volume?",
         options: ["198 m³", "197 m³", "200 m³", "210 m³"],
@@ -149,6 +168,7 @@ options: [ "Nature-inspired design","Postmodernism", "High-tech","Minimalism"],
 answer: "Nature-inspired design"
 }
     ];
+}  
 
 let currentQuestion = 0;
     let userAnswers = {};
@@ -162,7 +182,7 @@ let currentQuestion = 0;
     const ultraNextBtn = document.getElementById("ultranextBtn");
     const time = document.getElementById("timer");
 
-       function loadQuestion(index) {
+    function loadQuestion(index) {
       const q = questions[index];
       questionBox.innerHTML = `
         <h2>Question #${index+1}</h2>
@@ -213,6 +233,7 @@ let currentQuestion = 0;
       saveAnswer();
       if (currentQuestion > 0) {
         currentQuestion--;
+        step++;
         loadQuestion(currentQuestion);
       }
     });
@@ -221,8 +242,6 @@ let currentQuestion = 0;
       saveAnswer();
       if (currentQuestion > 0) {
         goToOne();
-        currentQuestion=0;
-        loadQuestion(currentQuestion);
       }
     });
 
@@ -235,54 +254,80 @@ let currentQuestion = 0;
       } 
     });
 
-    function gradeQuiz() {
-  let score = 0;
-  let reviewHTML = "";
+    async function gradeQuiz() {
+      let score = 0;
+       let reviewHTML = ""; 
+      questions.forEach((q, i) => {
+        const correct = userAnswers[i] === q.answer; 
+        if (correct) {
+          score++;
+        }
+        reviewHTML += `
+        <div class="review-item">
+          <p><strong>Q${i + 1}:</strong> ${q.text}</p>
+          <p>Your answer: ${userAnswers[i] || "Not answered"}</p>
+          <p>Correct answer: ${q.answer}</p>
+          <p>${correct ? "✅ Correct" : "❌ Incorrect"}</p>
+        </div>
+      `;
 
-  questions.forEach((q, i) => {
-    const isCorrect = userAnswers[i] === q.answer;
-    if (isCorrect) score++;
+    const percentage = Math.round((score / questions.length) * 100);
+    const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+    const quizzes = JSON.parse(localStorage.getItem("quizzes")) || [];
+    const currentQuiz = quizzes.length > 0 ? quizzes[quizzes.length - 1] : {title: "Quiz"};
+    
+    if (userData.name) {
+        const result = {
+            studentName: userData.name,
+            quizTitle: currentQuiz.title,
+            score: `${percentage}%`,
+            date: new Date().toISOString().split('T')[0],
+            status: percentage >= 60 ? 'Passed' : 'Failed'
+        };
+        
+        // Save to teacherResults
+        let teacherResults = JSON.parse(localStorage.getItem('teacherResults')) || [];
+        teacherResults.push(result);
+        localStorage.setItem('teacherResults', JSON.stringify(teacherResults));
 
-    reviewHTML += `
-      <div class="review-item">
-        <p><strong>Q${i + 1}:</strong> ${q.text}</p>
-        <p>Your answer: ${userAnswers[i] || "Not answered"}</p>
-        <p>Correct answer: ${q.answer}</p>
-        <p>${isCorrect ? " Correct" : " Incorrect"}</p>
+        if (window.api && window.api.isAvailable()) {
+  try {
+    await window.api.submitResult(result);
+    console.log('Result submitted to API');
+  } catch (apiError) {
+    console.log('API submission failed, result saved locally');
+  }
+}
+        
+        console.log("Result saved:", result);
+    }
+    
+
+    const grade =
+      percentage >= 90 ? "A" :
+      percentage >= 80 ? "B" :
+      percentage >= 70 ? "C" :
+      percentage >= 60 ? "D" : "F";
+
+    questionBox.innerHTML = `
+      <div class="result-summary">
+        <h2> Quiz Completed!</h2>
+        <h3>Score: ${score}/${questions.length}</h3>
+        <h3>Percentage: ${percentage}%</h3>
+        <h3>Grade: ${grade}</h3>
+        <h3>Status: ${percentage >= 60 ? '✅ Passed' : '❌ Failed'}</h3>
+        <button class="btn" onclick="location.reload()" style="margin-top: 20px;">Restart Quiz</button>
+      </div>
+      <hr>
+      <div class="review-section">
+        <h3>Review Your Answers:</h3>
+        ${reviewHTML}
       </div>
     `;
-  });
 
-  const percentage = Math.round((score / questions.length) * 100);
-  const grade =
-    percentage >= 90 ? "A" :
-    percentage >= 80 ? "B" :
-    percentage >= 70 ? "C" :
-    percentage >= 60 ? "D" : "F";
-
-  questionBox.innerHTML = `
-    <div class="result-summary">
-      <h2>🎉 Quiz Completed!</h2>
-      <h3>Score: ${score}/${questions.length}</h3>
-      <h3>Percentage: ${percentage}%</h3>
-      <h3>Grade: ${grade}</h3>
-      <h3>Status: ${percentage >= 60 ? " Passed" : " Failed"}</h3>
-      <button class="btn" onclick="location.reload()" style="margin-top:20px;">
-        Restart Quiz
-      </button>
-    </div>
-    <hr>
-    <div class="review-section">
-      <h3>Review Your Answers:</h3>
-      ${reviewHTML}
-    </div>
-  `;
-
-  document.querySelector(".btns").style.display = "none";
-  const time = document.getElementById("timer");
-  if (time) time.style.display = "none";
-}
-
+    document.querySelector('.btns').style.display = 'none';
+     if (time) time.style.display = 'none';
+  }
   window.logout = function() {
         localStorage.removeItem('userEmail');
         localStorage.removeItem('userRole');
@@ -303,5 +348,5 @@ let currentQuestion = 0;
 };
 
     loadQuestion(currentQuestion);
-  }
+  }//added++++++++++
   
