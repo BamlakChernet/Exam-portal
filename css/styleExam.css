@@ -1,4 +1,4 @@
-/* root added+++++++*/
+
 :root {
   --font: "Segoe UI", Tahoma, sans-serif;
   --container-color: #fff;
@@ -12,14 +12,14 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: var(--font); /*changed++++++++*/
+  font-family: var(--font); 
 }
 
 body {
   background:var(--body-bg);  
 
 }
-/*added ++++++*/
+
 header {
   display: flex;
   justify-content: space-between;
@@ -53,12 +53,12 @@ header button:hover {
 
 
 #timer {
-  background: #999999;  /*color change+++++++++++*/
-  color: #000; /*color change+++++++++++*/
+  background: #999999; 
+  color: #000; 
   display: inline-block;
   padding: 8px 16px;
   border-radius: 8px;
-  font-size: 20px; /*added++++++++*/
+  font-size: 20px; 
   font-weight: bold;
   margin-bottom: 20px;
 }
@@ -78,7 +78,7 @@ header button:hover {
   font-size: 18px;
   margin-bottom: 25px;
 }
-/* added++++++++*/
+
 .question {
   margin-bottom: 30px;
   padding-bottom: 20px;
