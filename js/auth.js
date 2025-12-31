@@ -1,4 +1,19 @@
+(function seedAdminAlways() {
+  let users = JSON.parse(localStorage.getItem("users")) || [];
 
+  const adminEmail = "admin@gmail.com";
+
+  if (!users.some(u => u.email === adminEmail)) {
+    users.push({
+      name: "Admin admins",
+      email: adminEmail,
+      password: "123456",
+      role: "admin",
+      approved: true
+    });
+    localStorage.setItem("users", JSON.stringify(users));
+  }
+})();
 function showLogin() {
   document.getElementById('loginForm').style.display = 'block';
   document.getElementById('signupForm').style.display = 'none';
