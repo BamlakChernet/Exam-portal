@@ -271,7 +271,7 @@ let currentQuestion = 0;
           <p>${correct ? "✅ Correct" : "❌ Incorrect"}</p>
         </div>
       `;
-
+});
     const percentage = Math.round((score / questions.length) * 100);
     const userData = JSON.parse(localStorage.getItem('userData') || '{}');
     const quizzes = JSON.parse(localStorage.getItem("quizzes")) || [];
