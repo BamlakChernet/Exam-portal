@@ -56,7 +56,7 @@ function render() {
     if (u.role === "teacher") {
       allTeachers.innerHTML += `
         <div class="user-card">
-          ${u.name} (${u.email}) - ${u.approved ? "✅ Approved" : "⏳ Pending"}
+          ${u.name} (${u.email}) - ${u.approved ? " Approved" : " Pending"}
           <button onclick="deleteUser('${u.email}')">Delete</button>
         </div>`;
     }
@@ -65,7 +65,7 @@ function render() {
     if (u.role === "student") {
       allStudents.innerHTML += `
         <div class="user-card">
-          ${u.name} (${u.email}) - ${u.approved ? "✅ Approved" : "⏳ Pending"}
+          ${u.name} (${u.email}) - ${u.approved ? " Approved" : " Pending"}
           <button onclick="deleteUser('${u.email}')">Delete</button>
         </div>`;
     }
