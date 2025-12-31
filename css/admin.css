@@ -1,0 +1,56 @@
+:root {
+  --font: Arial, sans-serif,"Segoe UI", Tahoma;
+  --btn-bg: #e7dedee1;
+  --btn-color: #2d3748;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: var(--font);
+}
+
+body {
+  background: linear-gradient(135deg,#4a5568,#2d3748);
+  color: #fff;
+  min-height: 100vh;
+  margin: 0;
+}
+
+header {
+  padding: 20px;
+  text-align: center;
+}
+
+.container {
+  max-width: 900px;
+  margin: auto;
+  background: rgba(255,255,255,0.15);
+  padding: 30px;
+  border-radius: 15px;
+}
+
+section {
+  margin-bottom: 30px;
+  background: rgba(255,255,255,0.1);
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.user-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255,255,255,0.2);
+  padding: 12px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+}
+
+button {
+  background: var(--btn-bg);
+  color: var(--btn-color);
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
