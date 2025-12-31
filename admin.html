@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="css/admin.css" />
+</head>
+<body>
+
+<h1>Admin Dashboard</h1>
+
+<section>
+  <h2>Pending Teacher Approvals</h2>
+  <div id="pendingTeachers"></div>
+</section>
+
+<section>
+  <h2>All Teachers</h2>
+  <div id="allTeachers"></div>
+</section>
+
+<section>
+  <h2>All Students</h2>
+  <div id="allStudents"></div>
+</section>
+
+<section>
+  <h2>System Actions</h2>
+  <button onclick="exportData()">Export All Data</button>
+  <button onclick="clearDemoData()">Clear Demo/Test Data</button>
+</section>
+
+<script src="js/admin.js"></script>
+</body>
+</html>
