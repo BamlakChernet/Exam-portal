@@ -21,7 +21,7 @@ function deleteUser(email) {
   const index = users.findIndex(u => u.email === email);
 
   if (index === -1) return;
-  if (users[index].role === "admin") return; // Admin cannot be deleted
+  if (users[index].role === "admin") return; 
 
   if (!confirm("Delete this user?")) return;
 
@@ -71,6 +71,23 @@ function render() {
     }
   });
 }
+function exportData() {
+  const blob = new Blob(
+    [JSON.stringify(localStorage, null, 2)],
+    { type: "application/json" }
+  );
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "exam-portal-data.json";
+  a.click();
+}
 
+function clearDemoData() {
+  if (confirm("Are you sure?")) {
+    localStorage.clear();
+    alert("Data cleared");
+    location.reload();
+  }
+}
 
 render();
