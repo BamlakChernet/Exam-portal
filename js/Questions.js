@@ -233,7 +233,6 @@ let currentQuestion = 0;
       saveAnswer();
       if (currentQuestion > 0) {
         currentQuestion--;
-        step++;
         loadQuestion(currentQuestion);
       }
     });
@@ -242,6 +241,8 @@ let currentQuestion = 0;
       saveAnswer();
       if (currentQuestion > 0) {
         goToOne();
+        currentQuestion=0;
+        loadQuestion(currentQuestion);
       }
     });
 
@@ -285,7 +286,7 @@ let currentQuestion = 0;
             status: percentage >= 60 ? 'Passed' : 'Failed'
         };
         
-        // Save to teacherResults
+     
         let teacherResults = JSON.parse(localStorage.getItem('teacherResults')) || [];
         teacherResults.push(result);
         localStorage.setItem('teacherResults', JSON.stringify(teacherResults));
@@ -348,5 +349,5 @@ let currentQuestion = 0;
 };
 
     loadQuestion(currentQuestion);
-  }//added++++++++++
+  }
   
